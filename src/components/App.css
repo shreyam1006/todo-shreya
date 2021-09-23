@@ -9,20 +9,42 @@
 }
 li{
   list-style: none;
-  width: 400px;
+  width: 500px;
   height: 50px;
   font-size: 25px;
 }
 
 ::placeholder{
   font-size: 25px;
-  opacity: 40%;
+  opacity: 30%;
   font-style: italic;
 }
 
 .App input[type="text"]{
-  width: 400px;
-  height: 50px;
+  width: 500px;
+  height: 70px;
   font-size: 25px;
   padding-left: 40px;
+}
+
+button{
+  color:grey; 
+  background-color: white;
+  border: none;
+  opacity: 30%;
+}
+
+
+.cross{
+  /* display: none; */
+  float: right;
+  font-size: 90%;
+  color: rgb(231, 55, 84);
+  opacity: 80%;
+}
+
+.container{
+  margin-left: 390px;
+  margin-right: 390px;
+  /* background-color: blue; */
 }
