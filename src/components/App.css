@@ -9,10 +9,12 @@
 }
 li{
   list-style: none;
-  width: 500px;
+  width: 500px; 
   height: 50px;
   font-size: 25px;
+  border-bottom: 1px solid #cecece;
 }
+
 
 ::placeholder{
   font-size: 25px;
@@ -24,7 +26,7 @@ li{
   width: 500px;
   height: 70px;
   font-size: 25px;
-  padding-left: 40px;
+  padding-left: 50px;
 }
 
 button{
@@ -41,10 +43,33 @@ button{
   font-size: 90%;
   color: rgb(231, 55, 84);
   opacity: 80%;
+  margin-right: 20px;
 }
 
 .container{
-  margin-left: 390px;
-  margin-right: 390px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 354px;
+  margin-right: 354px;
+  align-items: center;
+  border: 1px solid #efefef;
+  box-shadow: 
+    0 1px 1px rgba(0,0,0,0.10),
+    0 10px 0 -5px #eee,
+    0 10px 1px -4px rgba(0,0,0,0.15),
+    0 20px 0 -10px #eee,
+    0 20px 1px -9px rgba(0,0,0,0.15);
+
   /* background-color: blue; */
 }
+
+.inputcontainer{
+  position: relative;
+}
+
+.allbutton{
+  position: absolute;
+  height: 75px;
+  width: 50px;
+}
+

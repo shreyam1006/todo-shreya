@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
+import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 // import ListCom from 'ListCom';
 
 
@@ -10,16 +11,22 @@ class App extends React.Component {
     super(props);
     this.state = {
       newItem: "",
-      list: [],
+      list: []
     }
     this.handleClick = this.handleClick.bind(this);
+    this.addItem = this.addItem.bind(this);
 
   }
 
-  handleClick() {
-    this.setState(prevState => ({
-      isCompleted: !prevState.isCompleted
-    }));
+  handleClick(id) {
+    console.log(id);
+
+    this.setState({list:[...this.state.list].map(item=>{
+      if(item.id===id){
+        item.isCompleted=true;
+      } 
+      return item
+    })});
   }
 
 
@@ -30,26 +37,17 @@ class App extends React.Component {
   }
 
   addItem() {
-    const newItem = {
-      id: new Date(),
-      value: this.state.newItem.slice(),
-      isCompleted:false
-    };
-
-    const list = [...this.state.list];
-
-    list.push(newItem);
 
     this.setState({
-      list,
-      newItem: ""
+      list:[...this.state.list, {id: new Date(),
+        value: this.state.newItem.slice(),
+        isCompleted: false}],
+        newItem:""
     });
   }
 
   deleteItem(id) {
-    const list = [...this.state.list];
-    const updatedList = list.filter(item => item.id !== id);
-    this.setState({ list: updatedList });
+    this.setState({ list: [...this.state.list].filter(item=>item.id!==id) });
   }
 
 
@@ -59,22 +57,27 @@ class App extends React.Component {
         <div className="title">
           <h1>todos</h1>
         </div>
+        
         <div className="container">
+          <div className="inputcontainer">
+          <button className="allbutton" onClick={this.handleClick}>
+            <KeyboardArrowDownOutlinedIcon />
+          </button>
           <input
             type="text"
             placeholder="What needs to be done?"
             value={this.state.newItem}
             onChange={e => this.updateInput("newItem", e.target.value)}
-             onKeyDown={e=>e.key==="Enter" && this.addItem()}
+            onKeyDown={e => e.key === "Enter" && this.addItem()}
           />
-          
+          </div>
           <br />
           <ul>
             {this.state.list.map(item => {
               return (
-                <li style={{ textDecoration: this.state.isCompleted ? 'line-through' : 'none' }} key={item.id}>
-                  <button onClick={this.handleClick}>
-                    {this.state.isCompleted ? <CheckCircleOutlinedIcon /> : <CircleOutlinedIcon />}
+                <li style={{ textDecoration: item.isCompleted ? 'line-through' : 'none' }} key={item.id}>
+                  <button onClick={()=>this.handleClick(item.id)}>
+                    {item.isCompleted ? <CheckCircleOutlinedIcon /> : <CircleOutlinedIcon />}
                   </button>
                   {item.value}
                   <button className="cross" onClick={() => this.deleteItem(item.id)}>x</button>
