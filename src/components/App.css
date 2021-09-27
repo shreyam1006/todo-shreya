@@ -73,3 +73,8 @@ button{
   width: 50px;
 }
 
+.status{
+  display: flex;
+  flex-direction: row;
+}
+
