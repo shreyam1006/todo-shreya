@@ -128,6 +128,7 @@ class InputContainer extends React.Component {
                     <Button 
                     className="allbutton" onClick={() => this.handleAll(itemsLeft)}
                     content={<KeyboardArrowDownOutlinedIcon sx={{ fontSize: 40 }}/>}
+                    style={{display:this.state.list.length>0?'flex':'none'}}
                     />
 
                     <Input
