@@ -2,6 +2,8 @@ import React from 'react'
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import Input from './shared/Input'
 import ListItem from './shared/ListItem'
+import Status from './shared/Status';
+import Button from './shared/Button';
 
 class InputContainer extends React.Component {
     constructor() {
@@ -97,6 +99,22 @@ class InputContainer extends React.Component {
 
     }
 
+    onClickAll() {
+        this.setState({ listMode: 'all' })
+    }
+
+    onClickActive() {
+        this.setState({ listMode: 'active' })
+    }
+
+    onClickCompleted() {
+        this.setState({ listMode: 'completed' })
+    }
+
+    onClickClearCompleted() {
+        this.setState({ list: [...this.state.list].filter(item => item.isCompleted === false) })
+    }
+
 
     render() {
 
@@ -107,9 +125,10 @@ class InputContainer extends React.Component {
             <div className="inputcontainer">
 
                 <div className="inputsection">
-                    <button className="allbutton" onClick={() => this.handleAll(itemsLeft)}>
-                        <KeyboardArrowDownOutlinedIcon sx={{ fontSize: 40 }} />
-                    </button>
+                    <Button 
+                    className="allbutton" onClick={() => this.handleAll(itemsLeft)}
+                    content={<KeyboardArrowDownOutlinedIcon sx={{ fontSize: 40 }}/>}
+                    />
 
                     <Input
                         className="maininput"
@@ -136,19 +155,15 @@ class InputContainer extends React.Component {
 
                 </div>
 
-                <div className="status">
-                    <p>{itemsLeft} items left</p>
-                    <div className="buttonset">
-                        <button className="statusbutton" onClick={() => this.setState({ listMode: 'all' })}>All</button>
-                        <button className="statusbutton" onClick={() => this.setState({ listMode: 'active' })}>Active</button>
-                        <button className="statusbutton" onClick={() => this.setState({ listMode: 'completed' })}>Completed</button>
-                    </div>
-                    <button className='statusbutton'
-                        onClick={() => this.setState({ list: [...this.state.list].filter(item => item.isCompleted === false) })}
-                        style={{ color: this.state.list.length - itemsLeft >= 1 ? 'grey' : 'white' }}>
-                        Clear Completed
-                    </button>
-                </div>
+                <Status 
+                itemsLeft={itemsLeft}
+                onClickAll={() => this.onClickAll()}
+                onClickActive={() => this.onClickActive()}
+                onClickCompleted={() => this.onClickCompleted()}
+                onClickClearCompleted={() => this.onClickClearCompleted()}
+                list={this.state.list}
+                />
+
             </div>
 
         )

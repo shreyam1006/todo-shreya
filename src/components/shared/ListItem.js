@@ -3,6 +3,7 @@ import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import Input from './Input'
+import Button from './Button';
 
 class ListItem extends React.Component {
 
@@ -24,21 +25,28 @@ class ListItem extends React.Component {
 
     render() {
         return (
-            <div className="list" 
-            style={{ textDecoration: this.props.iscompleted ? 'line-through' : 'none' }} 
-            key={this.props.id}  >
+            <div className="list"
+                style={{ textDecoration: this.props.iscompleted ? 'line-through' : 'none' }}
+                key={this.props.id}  >
 
-                <div className="listitem" 
-                onDoubleClick={() => this.onDoubleClickEdit(this.props.value)} 
-                style={{ display: this.props.edit ? 'none' : 'flex' }}>
+                <div className="listitem"
+                    onDoubleClick={() => this.onDoubleClickEdit(this.props.value)}
+                    style={{ display: this.props.edit ? 'none' : 'flex' }}>
 
                     <div className="leftsection" style={{ opacity: this.props.iscompleted ? '30%' : '100%' }}>
-                        <button className="icon" onClick={() => this.props.onclick(this.props.id)}>
-                            {this.props.iscompleted ? <CheckCircleOutlinedIcon sx={{ fontSize: 40 }} /> : <CircleOutlinedIcon sx={{ fontSize: 40 }} />}
-                        </button>
+                        <Button
+                            className="icon"
+                            onClick={() => this.props.onclick(this.props.id)}
+                            content={this.props.iscompleted ? <CheckCircleOutlinedIcon sx={{ fontSize: 40 }} /> : <CircleOutlinedIcon sx={{ fontSize: 40 }} />}
+                        />
                         <h7> {this.props.value}</h7>
                     </div>
-                    <button className="cross" onClick={() => this.props.ondelete(this.props.id)}><ClearOutlinedIcon/></button>
+                    <Button
+                        className="cross"
+                        onClick={() => this.props.ondelete(this.props.id)}
+                        content={<ClearOutlinedIcon />}
+                    />
+
                 </div>
 
                 <Input type="text"
