@@ -12,19 +12,20 @@ li{
   width: 500px; 
   height: 50px;
   font-size: 25px;
-  border-bottom: 1px solid #cecece;
+  align-items: center;
+  border-bottom: 1px solid #e2dbdb ;
 }
 
 
 ::placeholder{
-  font-size: 25px;
+  font-size: 23px;
   opacity: 30%;
   font-style: italic;
 }
 
 .App input[type="text"]{
   width: 500px;
-  height: 70px;
+  height: 60px;
   font-size: 25px;
   padding-left: 50px;
 }
@@ -33,7 +34,6 @@ button{
   color:grey; 
   background-color: white;
   border: none;
-  opacity: 30%;
 }
 
 
@@ -49,10 +49,10 @@ button{
 .container{
   display: flex;
   flex-direction: column;
-  margin-left: 354px;
-  margin-right: 354px;
+  margin-left: 28%;
+  margin-right: 28%;
   align-items: center;
-  border: 1px solid #efefef;
+  border: 3px solid #efefef;
   box-shadow: 
     0 1px 1px rgba(0,0,0,0.10),
     0 10px 0 -5px #eee,
@@ -69,12 +69,24 @@ button{
 
 .allbutton{
   position: absolute;
-  height: 75px;
+  margin-top: 2px;
+  height: 60px;
   width: 50px;
+  opacity: 30%;
 }
 
 .status{
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
 }
+
+.icon{
+  opacity: 40%;
+}
+
+
+
+
 

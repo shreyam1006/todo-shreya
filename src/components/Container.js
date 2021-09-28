@@ -1,6 +1,5 @@
 import React from 'react'
 import InputContainer from './InputContainer'
-// import TodoListItem from './TodoListItem'
 
 class Container extends React.Component {
     constructor(props) {
