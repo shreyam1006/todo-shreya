@@ -31,12 +31,13 @@ class InputContainer extends React.Component {
         });
     }
 
-    handleAll() {
+    handleAll(itemsLeft) {
+        let flag= itemsLeft>0?false:true;
 
         this.setState({
             list: [...this.state.list].map(item => {
-                if (item.isCompleted === false) {
-                    item.isCompleted = true;
+                if (item.isCompleted === flag) {
+                    item.isCompleted = !flag;
                 }
                 return item
             })
@@ -106,7 +107,7 @@ class InputContainer extends React.Component {
             <div className="inputcontainer">
 
                 <div className="inputsection">
-                    <button className="allbutton" onClick={() => this.handleAll()}>
+                    <button className="allbutton" onClick={() => this.handleAll(itemsLeft)}>
                         <KeyboardArrowDownOutlinedIcon sx={{ fontSize: 40 }} />
                     </button>
 
