@@ -127,11 +127,14 @@ button:hover{
 }
 
 .status{
+  flex:1;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  /* background-color: red; */
+  width: 500px;
   position: relative;
 }
 

@@ -143,7 +143,7 @@ class InputContainer extends React.Component {
                         <button className="statusbutton" onClick={() => this.setState({ listMode: 'completed' })}>Completed</button>
                     </div>
                     <button className='statusbutton' onClick={()=>this.setState({ list: [...this.state.list].filter(item => item.isCompleted === false) })} 
-                    style={{ display: this.state.list.length - itemsLeft >= 1 ? 'inline' : 'none' }}>Clear Completed</button>
+                    style={{ color: this.state.list.length - itemsLeft >= 1 ? 'grey' : 'white' }}>Clear Completed</button>
                 </div>
             </div>
 
