@@ -11,14 +11,12 @@ class InputContainer extends React.Component {
             list: [],
             listMode: 'all'
         }
+
         this.handleClick = this.handleClick.bind(this);
         this.addItem = this.addItem.bind(this);
-        this.updateInput = this.updateInput.bind(this);
-        this.deleteItem = this.deleteItem.bind(this);
         this.editItem = this.editItem.bind(this);
         this.replaceItem = this.replaceItem.bind(this);
         this.handleAll = this.handleAll.bind(this);
-        this.clearCompleted = this.clearCompleted.bind(this);
     }
 
     handleClick(id) {
@@ -31,7 +29,6 @@ class InputContainer extends React.Component {
                 return item
             })
         });
-        console.log(this.list)
     }
 
     handleAll() {
@@ -47,16 +44,6 @@ class InputContainer extends React.Component {
     }
 
 
-    updateInput(key, value) {
-        this.setState({
-            [key]: value
-        });
-    }
-
-    itemsLeft() {
-        return [...this.state.list].filter(item => item.isCompleted === false).length
-    }
-
     addItem() {
 
         this.setState({
@@ -70,9 +57,6 @@ class InputContainer extends React.Component {
         });
     }
 
-    deleteItem(id) {
-        this.setState({ list: [...this.state.list].filter(item => item.id !== id) })
-    }
 
     editItem(id) {
         this.setState({
@@ -113,12 +97,10 @@ class InputContainer extends React.Component {
     }
 
 
-
-    clearCompleted() {
-        this.setState({ list: [...this.state.list].filter(item => item.isCompleted === false) })
-    }
-
     render() {
+
+        const listToMap= this.listToShow();
+        const itemsLeft= [...this.state.list].filter(item => item.isCompleted === false).length
 
         return (
             <div className="inputcontainer">
@@ -129,40 +111,39 @@ class InputContainer extends React.Component {
                     </button>
 
                     <Input
+                        className="maininput"
                         type="text"
                         placeholder="What needs to be done?"
                         value={this.state.newItem}
-                        onChange={e => this.updateInput("newItem", e.target.value)}
+                        onChange={e => this.setState({newItem: e.target.value})}
                         onKeyDown={e => e.key === "Enter" && this.addItem()}
                     />
                 </div>
-                <hr/>
 
                 <div>
-                    {this.listToShow().map(item =>
+                    {listToMap.map(item =>
 
                         <ListItem iscompleted={item.isCompleted}
                             value={item.value}
                             id={item.id}
                             edit={item.edit}
                             onclick={this.handleClick}
-                            ondelete={this.deleteItem}
+                            ondelete={(id)=>this.setState({ list: [...this.state.list].filter(item => item.id !== id) })}
                             onedit={this.editItem}
-                            updateinput={this.updateInput}
                             replaceitem={this.replaceItem}
                         />)}
 
                 </div>
 
-                <br />
                 <div className="status">
-                    <p>{this.itemsLeft()} items left</p>
-                    <div >
-                        <button className="statusbutton" onClick={() => { this.setState({ listMode: 'all' }) }}>All</button>
+                    <p>{itemsLeft} items left</p>
+                    <div className="buttonset">
+                        <button className="statusbutton" onClick={() =>  this.setState({ listMode: 'all' }) }>All</button>
                         <button className="statusbutton" onClick={() => this.setState({ listMode: 'active' })}>Active</button>
                         <button className="statusbutton" onClick={() => this.setState({ listMode: 'completed' })}>Completed</button>
                     </div>
-                    <button className='statusbutton' onClick={this.clearCompleted} style={{ display: this.state.list.length - this.itemsLeft() >= 1 ? 'inline' : 'none' }}>Clear Completed</button>
+                    <button className='statusbutton' onClick={()=>this.setState({ list: [...this.state.list].filter(item => item.isCompleted === false) })} 
+                    style={{ display: this.state.list.length - itemsLeft >= 1 ? 'inline' : 'none' }}>Clear Completed</button>
                 </div>
             </div>
 

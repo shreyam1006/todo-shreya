@@ -4,44 +4,28 @@
   color: rgb(231, 55, 84);
   opacity: 20%;
 }
-.App{
-  align-self: center;
-}
 
-.list{
-  margin-left: 10px;
-  width: 500px; 
-  height: 50px;
+.App input[type="text"]{
+  width: 470px;
+  height: 60px;
   font-size: 25px;
-  align-items: center;
-
-  border-bottom: 1px solid #e2dbdb ;
+  border:none;
 }
 
-.listcontainer{
-  display: flex;
-  flex-direction: column;
-
+input[type="text"]:focus{
+  outline: none;
+  /* background-color: green; */
 }
 
 ::placeholder{
   font-size: 23px;
   opacity: 30%;
   font-style: italic;
-  padding-left: 20px;
+  /* padding-left: 20px; */
 }
 
-.App input[type="text"]{
-  width: 500px;
-  height: 60px;
-  font-size: 25px;
-  padding-left: 45px;
-  border:none
-}
-
-.statusbutton:focus{
-  border: 1px solid brown;
-  border-radius: 2px;
+.maininput{
+  border-bottom: 1px solid gray;
 }
 
 button{
@@ -51,18 +35,16 @@ button{
   padding: 5px 5px 5px 5px;
 }
 
-
-.cross{
-  /* display: none; */
-  float: right;
-  font-size: 90%;
-  color: rgb(231, 55, 84);
-  opacity: 80%;
-  margin-right: 0;
-  height: 5px;
+button:hover{
+  cursor: pointer;
 }
 
-.container{
+.App{
+  align-self: center;
+}
+
+.inputcontainer{
+  /* position: relative; */
   display: flex;
   flex-direction: column;
   margin-left: 28%;
@@ -75,15 +57,8 @@ button{
     0 10px 1px -4px rgba(0,0,0,0.15),
     0 20px 0 -10px #eee,
     0 20px 1px -9px rgba(0,0,0,0.15);
-
-  /* background-color: blue; */
 }
 
-.inputcontainer{
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
 
 .inputsection{
   display: flex;
@@ -91,35 +66,84 @@ button{
 }
 
 .allbutton{
-  position: absolute;
+  /* position: absolute; */
   padding-left: 10px;
   padding-right: 10px;
   margin-top: 3px;
-  margin-right: 10px;
+  margin-left: 0;
   height: 60px;
   width: 70px;
   opacity: 30%;
   /* background-color: hotpink; */
 }
 
-.status{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-}
 
 .icon{
   opacity: 40%;
+}
+
+.editInput{
+  /* background-color: green; */
+  width: fit-content;
+
+}
+
+.list{
+  margin-left: 0;
+  margin-right: 0;
+  width: 522px; 
+  height: 50px;
+  font-size: 25px;
+  align-items: center;
+  align-content: center;
+  vertical-align: middle;
+  border-bottom: 1px solid #e2dbdb ;
 }
 
 .listitem{
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  align-content: center;
-  /* border-bottom: 1px solid #e2dbdb ; */
+  align-items: center;
+  margin-left: 0;
 }
+
+.listitem .leftsection{
+  display: flex;
+  align-items: center;
+}
+
+.cross{
+  font-size: 90%;
+  color: rgb(231, 55, 84);
+  opacity: 80%;
+  margin-right: 0;
+  height: 30px;
+}
+
+.statusbutton:focus{
+  border: 1px solid brown;
+  border-radius: 2px;
+}
+
+.status{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
