@@ -9,12 +9,11 @@ class InputContainer extends React.Component {
         this.state = {
             newItem: '',
             list: [],
-            listMode: 'all',
-            newListItem:''
+            listMode: 'all'
         }
         this.handleClick = this.handleClick.bind(this);
         this.addItem = this.addItem.bind(this);
-        this.updateInput= this.updateInput.bind(this);
+        this.updateInput = this.updateInput.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
         this.editItem = this.editItem.bind(this);
         this.replaceItem = this.replaceItem.bind(this);
@@ -65,48 +64,52 @@ class InputContainer extends React.Component {
                 id: new Date(),
                 value: this.state.newItem.slice(),
                 isCompleted: false,
-                edit:false
+                edit: false
             }],
             newItem: ""
         });
     }
 
     deleteItem(id) {
-        this.setState({ list: [...this.state.list].filter(item => item.id !== id)}) 
+        this.setState({ list: [...this.state.list].filter(item => item.id !== id) })
     }
 
-    editItem(id){
-        this.setState({list: [...this.state.list].map(item=>{
-            if(item.id===id){
-                item.edit=true
-            }
-            return item
-        })})
+    editItem(id) {
+        this.setState({
+            list: [...this.state.list].map(item => {
+                if (item.id === id) {
+                    item.edit = true
+                }
+                return item
+            })
+        })
     }
 
-    replaceItem(id){
-        this.setState({list: [...this.state.list].map(item=>{
-            if(item.id===id){
-                item.value=this.state.newListItem
-                item.edit=false
-            }
-            return item
-        })})
-        
+    replaceItem(id,value) {
+        this.setState({
+            list: [...this.state.list].map(item => {
+                if (item.id === id) {
+                    item.value = value
+                    item.edit = false
+                }
+                return item
+            })
+        })
+
     }
 
-    listToShow(){
-        if(this.state.listMode==='all'){
+    listToShow() {
+        if (this.state.listMode === 'all') {
             return this.state.list
         }
-        if(this.state.listMode==='active'){
+        if (this.state.listMode === 'active') {
             return [...this.state.list].filter(item => item.isCompleted === false)
         }
-        if(this.state.listMode==='completed'){
+        if (this.state.listMode === 'completed') {
             return [...this.state.list].filter(item => item.isCompleted === true)
         }
         return [...this.state.list].filter(item => item.isCompleted === false)
-        
+
     }
 
 
@@ -120,43 +123,46 @@ class InputContainer extends React.Component {
         return (
             <div className="inputcontainer">
 
-                <button className="allbutton" onClick={() => this.handleAll()}>
-                    <KeyboardArrowDownOutlinedIcon />
-                </button>
+                <div className="inputsection">
+                    <button className="allbutton" onClick={() => this.handleAll()}>
+                        <KeyboardArrowDownOutlinedIcon sx={{ fontSize: 40 }} />
+                    </button>
 
-                <Input
-                    type="text"
-                    placeholder="What needs to be done?"
-                    value={this.state.newItem}
-                    onChange={e => this.updateInput("newItem", e.target.value)}
-                    onKeyDown={e => e.key === "Enter" && this.addItem()}
-                />
+                    <Input
+                        type="text"
+                        placeholder="What needs to be done?"
+                        value={this.state.newItem}
+                        onChange={e => this.updateInput("newItem", e.target.value)}
+                        onKeyDown={e => e.key === "Enter" && this.addItem()}
+                    />
+                </div>
+                <hr/>
 
-                <ol>
+                <div>
                     {this.listToShow().map(item =>
 
                         <ListItem iscompleted={item.isCompleted}
                             value={item.value}
                             id={item.id}
                             edit={item.edit}
-                            newListItem={this.state.newListItem}
                             onclick={this.handleClick}
                             ondelete={this.deleteItem}
                             onedit={this.editItem}
                             updateinput={this.updateInput}
                             replaceitem={this.replaceItem}
                         />)}
-                </ol>
+
+                </div>
 
                 <br />
                 <div className="status">
                     <p>{this.itemsLeft()} items left</p>
                     <div >
-                        <button onClick={()=>{this.setState({listMode:'all'})}}>All</button>
-                        <button onClick={()=>this.setState({listMode:'active'})}>Active</button>
-                        <button onClick={()=>this.setState({listMode:'completed'})}>Completed</button>
+                        <button className="statusbutton" onClick={() => { this.setState({ listMode: 'all' }) }}>All</button>
+                        <button className="statusbutton" onClick={() => this.setState({ listMode: 'active' })}>Active</button>
+                        <button className="statusbutton" onClick={() => this.setState({ listMode: 'completed' })}>Completed</button>
                     </div>
-                    <button className='clearcompleted' onClick={this.clearCompleted} style={{ display: this.state.list.length-this.itemsLeft() >= 1 ? 'inline' : 'none' }}>Clear Completed</button>
+                    <button className='statusbutton' onClick={this.clearCompleted} style={{ display: this.state.list.length - this.itemsLeft() >= 1 ? 'inline' : 'none' }}>Clear Completed</button>
                 </div>
             </div>
 

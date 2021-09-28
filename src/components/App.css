@@ -7,33 +7,48 @@
 .App{
   align-self: center;
 }
-li{
-  list-style: none;
+
+.list{
+  margin-left: 10px;
   width: 500px; 
   height: 50px;
   font-size: 25px;
   align-items: center;
+
   border-bottom: 1px solid #e2dbdb ;
 }
 
+.listcontainer{
+  display: flex;
+  flex-direction: column;
+
+}
 
 ::placeholder{
   font-size: 23px;
   opacity: 30%;
   font-style: italic;
+  padding-left: 20px;
 }
 
 .App input[type="text"]{
   width: 500px;
   height: 60px;
   font-size: 25px;
-  padding-left: 50px;
+  padding-left: 45px;
+  border:none
+}
+
+.statusbutton:focus{
+  border: 1px solid brown;
+  border-radius: 2px;
 }
 
 button{
   color:grey; 
   background-color: white;
   border: none;
+  padding: 5px 5px 5px 5px;
 }
 
 
@@ -43,7 +58,8 @@ button{
   font-size: 90%;
   color: rgb(231, 55, 84);
   opacity: 80%;
-  margin-right: 20px;
+  margin-right: 0;
+  height: 5px;
 }
 
 .container{
@@ -65,14 +81,25 @@ button{
 
 .inputcontainer{
   position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.inputsection{
+  display: flex;
+  flex-direction: row;
 }
 
 .allbutton{
   position: absolute;
-  margin-top: 2px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 3px;
+  margin-right: 10px;
   height: 60px;
-  width: 50px;
+  width: 70px;
   opacity: 30%;
+  /* background-color: hotpink; */
 }
 
 .status{
@@ -84,6 +111,14 @@ button{
 
 .icon{
   opacity: 40%;
+}
+
+.listitem{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-content: center;
+  /* border-bottom: 1px solid #e2dbdb ; */
 }
 
 
