@@ -4,8 +4,8 @@ import Input from './shared/Input'
 import ListItem from './shared/ListItem'
 
 class InputContainer extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
             newItem: '',
             list: [],
@@ -32,7 +32,7 @@ class InputContainer extends React.Component {
     }
 
     handleAll(itemsLeft) {
-        let flag= itemsLeft>0?false:true;
+        let flag = itemsLeft > 0 ? false : true;
 
         this.setState({
             list: [...this.state.list].map(item => {
@@ -70,7 +70,7 @@ class InputContainer extends React.Component {
         })
     }
 
-    replaceItem(id,value) {
+    replaceItem(id, value) {
         this.setState({
             list: [...this.state.list].map(item => {
                 if (item.id === id) {
@@ -100,8 +100,8 @@ class InputContainer extends React.Component {
 
     render() {
 
-        const listToMap= this.listToShow();
-        const itemsLeft= [...this.state.list].filter(item => item.isCompleted === false).length
+        const listToMap = this.listToShow();
+        const itemsLeft = [...this.state.list].filter(item => item.isCompleted === false).length
 
         return (
             <div className="inputcontainer">
@@ -116,7 +116,7 @@ class InputContainer extends React.Component {
                         type="text"
                         placeholder="What needs to be done?"
                         value={this.state.newItem}
-                        onChange={e => this.setState({newItem: e.target.value})}
+                        onChange={e => this.setState({ newItem: e.target.value })}
                         onKeyDown={e => e.key === "Enter" && this.addItem()}
                     />
                 </div>
@@ -129,7 +129,7 @@ class InputContainer extends React.Component {
                             id={item.id}
                             edit={item.edit}
                             onclick={this.handleClick}
-                            ondelete={(id)=>this.setState({ list: [...this.state.list].filter(item => item.id !== id) })}
+                            ondelete={(id) => this.setState({ list: [...this.state.list].filter(item => item.id !== id) })}
                             onedit={this.editItem}
                             replaceitem={this.replaceItem}
                         />)}
@@ -139,12 +139,15 @@ class InputContainer extends React.Component {
                 <div className="status">
                     <p>{itemsLeft} items left</p>
                     <div className="buttonset">
-                        <button className="statusbutton" onClick={() =>  this.setState({ listMode: 'all' }) }>All</button>
+                        <button className="statusbutton" onClick={() => this.setState({ listMode: 'all' })}>All</button>
                         <button className="statusbutton" onClick={() => this.setState({ listMode: 'active' })}>Active</button>
                         <button className="statusbutton" onClick={() => this.setState({ listMode: 'completed' })}>Completed</button>
                     </div>
-                    <button className='statusbutton' onClick={()=>this.setState({ list: [...this.state.list].filter(item => item.isCompleted === false) })} 
-                    style={{ color: this.state.list.length - itemsLeft >= 1 ? 'grey' : 'white' }}>Clear Completed</button>
+                    <button className='statusbutton'
+                        onClick={() => this.setState({ list: [...this.state.list].filter(item => item.isCompleted === false) })}
+                        style={{ color: this.state.list.length - itemsLeft >= 1 ? 'grey' : 'white' }}>
+                        Clear Completed
+                    </button>
                 </div>
             </div>
 
