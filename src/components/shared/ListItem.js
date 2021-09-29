@@ -5,14 +5,14 @@ import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import Input from './Input'
 import Button from './Button';
 
-function ListItem(props) {
+const ListItem=(props)=> {
 
     let [newListItem, setNewListItem] = useState('');
 
-    function onDoubleClickEdit(value) {
+    const onDoubleClickEdit=(value)=> {
 
         setNewListItem(newListItem = value)
-        props.onedit(props.id)
+        props.onEdit(props.id)
 
     }
 
@@ -28,14 +28,14 @@ function ListItem(props) {
                 <div className="leftsection" style={{ opacity: props.iscompleted ? '30%' : '100%' }}>
                     <Button
                         className="icon"
-                        onClick={() => props.onclick(props.id)}
+                        onClick={() => props.onClick(props.id)}
                         content={props.iscompleted ? <CheckCircleOutlinedIcon sx={{ fontSize: 40 }} /> : <CircleOutlinedIcon sx={{ fontSize: 40 }} />}
                     />
                     <h7> {props.value}</h7>
                 </div>
                 <Button
                     className="cross"
-                    onClick={() => props.ondelete(props.id)}
+                    onClick={() => props.onDelete(props.id)}
                     content={<ClearOutlinedIcon />}
                 />
 
@@ -45,7 +45,7 @@ function ListItem(props) {
                 className="editInput"
                 value={newListItem}
                 onChange={e => setNewListItem(newListItem = e.target.value)}
-                onKeyDown={e => e.key === "Enter" && props.replaceitem(props.id, newListItem)}
+                onKeyDown={e => e.key === "Enter" && props.replaceItem(props.id, newListItem)}
                 placeholder={props.value}
                 style={{ display: props.edit ? 'flex' : 'none' }}
             />

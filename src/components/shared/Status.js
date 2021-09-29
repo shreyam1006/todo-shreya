@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from './Button'
 
-function Status(props){
+const Status=(props)=>{
     return (
         <div className="status" style={{ display: props.list.length > 0 ? 'flex' : 'none' }}>
             <p>{props.itemsLeft} items left</p>
