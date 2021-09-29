@@ -1,13 +1,10 @@
 import React from 'react'
 
-class Input extends React.Component{
-
-    render(){
-        return(
-            <input className={this.props.className} type={this.props.type} value={this.props.value} onChange={this.props.onChange} style={this.props.style}
-            placeholder={this.props.placeholder} onKeyDown={this.props.onKeyDown}/>
-        )
-    }
+function Input(props){
+    return(
+        <input className={props.className} type={props.type} value={props.value} onChange={props.onChange} style={props.style}
+        placeholder={props.placeholder} onKeyDown={props.onKeyDown}/>
+    )
 }
 
 export default Input
