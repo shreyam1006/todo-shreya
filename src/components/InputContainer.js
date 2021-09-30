@@ -16,33 +16,36 @@ const InputContainer = () => {
 
     const itemsLeft = useMemo(()=>[...list].filter(item => item.isCompleted === false).length,[list])
 
-    const clickAll= useCallback(()=>(itemsLeft) => {
+    const clickAll= useCallback(() => {
+        
         let flag = itemsLeft > 0 ? false : true;
-        setList(
-            list = [...list].map(item => {
-                if (item.isCompleted === flag) {
-                    item.isCompleted = !flag;
-                }
-                return item
-            })
+        const allItems=[...list].map(item => {
+            if (item.isCompleted === flag) {
+                item.isCompleted = !flag;
+            }
+            return item
+        })
+        setList(allItems
         );
-    },[itemsLeft])
+        console.log(allItems);
+    },[itemsLeft,list])
 
-    const addItem =useMemo(()=>()=>{
+    const addItem =useCallback(()=>{
+        console.log('List Changed')
         setList(
-            list = [...list, {
+            [...list, {
                 id: new Date(),
                 value: newItem.slice(),
                 isCompleted: false,
                 edit: false
             }]
         )
-        setNewItem(newItem = "")
+        setNewItem("")
     },[list,newItem])
 
-    const click=useCallback(()=>(id) => {
+    const click=useCallback((id) => {
         console.log("completed/active")
-        setList(list = [...list].map(item => {
+        setList([...list].map(item => {
             if (item.id === id) {
                 item.isCompleted = !item.isCompleted;
             }
@@ -51,14 +54,14 @@ const InputContainer = () => {
         )
     },[list])
 
-    const deleteItem=useCallback(()=>(id) => {
-        setList(list = [...list].filter(item => item.id !== id))
+    const deleteItem=useCallback((id) => {
+        setList( [...list].filter(item => item.id !== id))
 
     },[list])
 
 
-    const editItem=useCallback(()=>(id) => {
-        setList(list = ([...list].map(item => {
+    const editItem=useCallback((id) => {
+        setList(([...list].map(item => {
             if (item.id === id) {
                 item.edit = true
             }
@@ -67,8 +70,8 @@ const InputContainer = () => {
         )
     },[list])
 
-    const replaceItem=useCallback(()=>(id, value) => {
-        setList(list = [...list].map(item => {
+    const replaceItem=useCallback((id, value) => {
+        setList([...list].map(item => {
             if (item.id === id) {
                 item.value = value
                 item.edit = false
@@ -124,12 +127,12 @@ const InputContainer = () => {
                     <ListItem iscompleted={item.isCompleted}
                         value={item.value}
                         id={item.id}
+                        key={item.id}
                         edit={item.edit}
-                        onClick={click(item.id)}
-                        // onDelete={deleteItem(item.id)}
-                        onDelete={dispatch(deleteListItem(item.id))}
-                        onEdit={editItem(item.id)}
-                        replaceItem={replaceItem(item.id, item.value)}
+                        onClick={()=>click(item.id)}
+                        onDelete={()=>deleteItem(item.id)}
+                        onEdit={()=>editItem(item.id)}
+                        replaceItem={()=>replaceItem(item.id, item.value)}
                     />)}
 
             </div>
