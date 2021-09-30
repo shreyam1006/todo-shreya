@@ -5,6 +5,12 @@ export const addListItem=(value)=>{
     }
 }
 
+export const listToMap=()=>{
+    return{
+        type:'LIST_TO_MAP'
+    }
+}
+
 export const deleteListItem=(id)=>{
     return{
     type:'DELETE_ITEM',

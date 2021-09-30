@@ -5,7 +5,7 @@ import ListItem from './shared/ListItem'
 import Status from './shared/Status';
 import Button from './shared/Button';
 import { useSelector,useDispatch } from 'react-redux';
-import {addListItem,deleteListItem,editListItem,clickAllButton,clickActiveButton,clickCompletedButton} from './redux/actions/index'
+import {addListItem,deleteListItem,editListItem,clickAllButton,clickActiveButton,clickCompletedButton, listToMap} from './redux/actions/index'
 
 const InputContainer = () => {
     let [newItem, setNewItem] = useState('')
@@ -19,23 +19,21 @@ const InputContainer = () => {
     const clickAll= useCallback(() => {
         
         let flag = itemsLeft > 0 ? false : true;
-        const allItems=[...list].map(item => {
+        setList([...list].map(item => {
             if (item.isCompleted === flag) {
                 item.isCompleted = !flag;
             }
             return item
-        })
-        setList(allItems
-        );
-        console.log(allItems);
+        }));
+        
     },[itemsLeft,list])
 
     const addItem =useCallback(()=>{
-        console.log('List Changed')
+        console.log(newItem)
         setList(
             [...list, {
                 id: new Date(),
-                value: newItem.slice(),
+                value: newItem,
                 isCompleted: false,
                 edit: false
             }]
@@ -82,24 +80,25 @@ const InputContainer = () => {
     },[list])
 
 
-    const listToMap = useMemo(()=>{
-        if (listMode === 'all') {
-            return list
-        }
-        if (listMode === 'active') {
-            return [...list].filter(item => item.isCompleted === false)
-        }
-        if (listMode === 'completed') {
-            return [...list].filter(item => item.isCompleted === true)
-        }
-        return [...list].filter(item => item.isCompleted === false)
-    }
-        ,[list,listMode]);
-
+    // const listToMap = useMemo(()=>{
+    //     if (listMode === 'all') {
+    //         return list
+    //     }
+    //     if (listMode === 'active') {
+    //         return [...list].filter(item => item.isCompleted === false)
+    //     }
+    //     if (listMode === 'completed') {
+    //         return [...list].filter(item => item.isCompleted === true)
+    //     }
+    //     return [...list].filter(item => item.isCompleted === false)
+    // }
+    //     ,[list,listMode]);
+    
 
     const todo = useSelector((state) => state.todoReducer);
     const display = useSelector((state) => state.displayReducer);
     const dispatch = useDispatch();
+    
 
     return (
         <div className="inputcontainer">
@@ -117,12 +116,12 @@ const InputContainer = () => {
                     placeholder="What needs to be done?"
                     value={newItem}
                     onChange={e => setNewItem(newItem = e.target.value)}
-                    onKeyDown={e => e.key === "Enter" && dispatch(addListItem(newItem))}
+                    onKeyDown={e => {if(e.key === "Enter"){ return (dispatch(addListItem(newItem)),setNewItem(''))}}}
                 />
             </div>
 
             <div>
-                {listToMap.map(item =>
+                {()=>dispatch(listToMap()).map(item =>
 
                     <ListItem iscompleted={item.isCompleted}
                         value={item.value}
@@ -130,7 +129,7 @@ const InputContainer = () => {
                         key={item.id}
                         edit={item.edit}
                         onClick={()=>click(item.id)}
-                        onDelete={()=>deleteItem(item.id)}
+                        // onDelete={()=>dispatch(deleteListItem(item.id))}
                         onEdit={()=>editItem(item.id)}
                         replaceItem={()=>replaceItem(item.id, item.value)}
                     />)}
