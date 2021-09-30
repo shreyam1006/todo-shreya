@@ -15,6 +15,7 @@ const ListItem=(props)=> {
         props.onEdit(props.id)
 
     }
+    
 
     return (
         <div className="list"

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useCallback, useState, useMemo } from 'react'
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import Input from './shared/Input'
 import ListItem from './shared/ListItem'
@@ -11,9 +11,11 @@ const InputContainer = () => {
     let [listMode, setListMode] = useState('all')
 
 
-    const handleAll = (itemsLeft) => {
-        let flag = itemsLeft > 0 ? false : true;
 
+    const itemsLeft = useMemo(()=>[...list].filter(item => item.isCompleted === false).length,[list])
+
+    const clickAll= useCallback(()=>(itemsLeft) => {
+        let flag = itemsLeft > 0 ? false : true;
         setList(
             list = [...list].map(item => {
                 if (item.isCompleted === flag) {
@@ -22,10 +24,10 @@ const InputContainer = () => {
                 return item
             })
         );
-    }
+    },[itemsLeft])
 
-    const addItem = () => {
-
+    const addItem =useMemo(()=>()=>{
+        console.log('List Changed')
         setList(
             list = [...list, {
                 id: new Date(),
@@ -35,11 +37,10 @@ const InputContainer = () => {
             }]
         )
         setNewItem(newItem = "")
-    }
-    
-//   const factorial = useMemo(() => factorialOf(number), [number]);
+    },[list,newItem])
 
-    const handleClick = (id) => {
+    const click=useCallback(()=>(id) => {
+        console.log("completed/active")
         setList(list = [...list].map(item => {
             if (item.id === id) {
                 item.isCompleted = !item.isCompleted;
@@ -47,14 +48,15 @@ const InputContainer = () => {
             return item
         })
         )
-    }
+    },[list])
 
-    const handleDelete = (id) => {
+    const deleteItem=useCallback(()=>(id) => {
         setList(list = [...list].filter(item => item.id !== id))
 
-    }
+    },[list])
 
-    const handleEdit = (id) => {
+
+    const editItem=useCallback(()=>(id) => {
         setList(list = ([...list].map(item => {
             if (item.id === id) {
                 item.edit = true
@@ -62,9 +64,9 @@ const InputContainer = () => {
             return item
         }))
         )
-    }
+    },[list])
 
-    const handleReplace = (id, value) => {
+    const replaceItem=useCallback(()=>(id, value) => {
         setList(list = [...list].map(item => {
             if (item.id === id) {
                 item.value = value
@@ -73,10 +75,10 @@ const InputContainer = () => {
             return item
         })
         )
-    }
+    },[list])
 
 
-    const listToShow = () => {
+    const listToMap = useMemo(()=>{
         if (listMode === 'all') {
             return list
         }
@@ -87,19 +89,15 @@ const InputContainer = () => {
             return [...list].filter(item => item.isCompleted === true)
         }
         return [...list].filter(item => item.isCompleted === false)
-
     }
-
-
-    const listToMap = listToShow();
-    const itemsLeft = [...list].filter(item => item.isCompleted === false).length
+        ,[list,listMode]);
 
     return (
         <div className="inputcontainer">
 
             <div className="inputsection">
                 <Button
-                    className="allbutton" onClick={() => handleAll(itemsLeft)}
+                    className="allbutton" onClick={clickAll}
                     content={<KeyboardArrowDownOutlinedIcon sx={{ fontSize: 40 }} />}
                     style={{ display: list.length > 0 ? 'flex' : 'none' }}
                 />
@@ -121,10 +119,10 @@ const InputContainer = () => {
                         value={item.value}
                         id={item.id}
                         edit={item.edit}
-                        onClick={(id) => handleClick(id)}
-                        onDelete={(id) => handleDelete(id)}
-                        onEdit={(id) => handleEdit(id)}
-                        replaceItem={(id, value) => handleReplace(id, value)}
+                        onClick={click(item.id)}
+                        onDelete={deleteItem(item.id)}
+                        onEdit={editItem(item.id)}
+                        replaceItem={replaceItem(item.id, item.value)}
                     />)}
 
             </div>
