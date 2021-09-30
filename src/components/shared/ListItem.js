@@ -32,7 +32,7 @@ const ListItem=(props)=> {
                         onClick={() => props.onClick(props.id)}
                         content={props.iscompleted ? <CheckCircleOutlinedIcon sx={{ fontSize: 40 }} /> : <CircleOutlinedIcon sx={{ fontSize: 40 }} />}
                     />
-                    <h7> {props.value}</h7>
+                    <div> {props.value}</div>
                 </div>
                 <Button
                     className="cross"
