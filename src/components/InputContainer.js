@@ -4,6 +4,8 @@ import Input from './shared/Input'
 import ListItem from './shared/ListItem'
 import Status from './shared/Status';
 import Button from './shared/Button';
+import { useSelector,useDispatch } from 'react-redux';
+import {addListItem,deleteListItem,editListItem,clickAllButton,clickActiveButton,clickCompletedButton} from './redux/actions/index'
 
 const InputContainer = () => {
     let [newItem, setNewItem] = useState('')
@@ -27,7 +29,6 @@ const InputContainer = () => {
     },[itemsLeft])
 
     const addItem =useMemo(()=>()=>{
-        console.log('List Changed')
         setList(
             list = [...list, {
                 id: new Date(),
@@ -92,6 +93,11 @@ const InputContainer = () => {
     }
         ,[list,listMode]);
 
+
+    const todo = useSelector((state) => state.todoReducer);
+    const display = useSelector((state) => state.displayReducer);
+    const dispatch = useDispatch();
+
     return (
         <div className="inputcontainer">
 
@@ -108,7 +114,7 @@ const InputContainer = () => {
                     placeholder="What needs to be done?"
                     value={newItem}
                     onChange={e => setNewItem(newItem = e.target.value)}
-                    onKeyDown={e => e.key === "Enter" && addItem()}
+                    onKeyDown={e => e.key === "Enter" && dispatch(addListItem(newItem))}
                 />
             </div>
 
@@ -120,7 +126,8 @@ const InputContainer = () => {
                         id={item.id}
                         edit={item.edit}
                         onClick={click(item.id)}
-                        onDelete={deleteItem(item.id)}
+                        // onDelete={deleteItem(item.id)}
+                        onDelete={dispatch(deleteListItem(item.id))}
                         onEdit={editItem(item.id)}
                         replaceItem={replaceItem(item.id, item.value)}
                     />)}
