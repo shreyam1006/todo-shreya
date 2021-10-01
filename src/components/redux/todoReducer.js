@@ -37,7 +37,7 @@ const todoReducer = (state = initialState, action) => {
             }
 
         case "DELETE_ITEM":
-            return state.list.filter(item => item.id !== action.id)
+            return {...state,list:[...state.list].filter(item => item.id !== action.id)}
 
         case "EDIT_ITEM":
             return {
