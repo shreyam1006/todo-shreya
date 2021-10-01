@@ -147,6 +147,7 @@ class InputContainer extends React.Component {
                         <ListItem iscompleted={item.isCompleted}
                             value={item.value}
                             id={item.id}
+                            key={item.id}
                             edit={item.edit}
                             onclick={this.handleClick}
                             ondelete={(id) => this.setState({ list: [...this.state.list].filter(item => item.id !== id) })}

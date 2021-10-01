@@ -14,14 +14,12 @@
 
 input[type="text"]:focus{
   outline: none;
-  /* background-color: green; */
 }
 
 ::placeholder{
   font-size: 23px;
   opacity: 30%;
   font-style: italic;
-  /* padding-left: 20px; */
 }
 
 
@@ -45,7 +43,6 @@ button:hover{
 }
 
 .inputcontainer{
-  /* position: relative; */
   display: flex;
   flex-direction: column;
   margin-left: 28%;
@@ -67,7 +64,6 @@ button:hover{
 }
 
 .allbutton{
-  /* position: absolute; */
   padding-left: 10px;
   padding-right: 10px;
   margin-top: 3px;
@@ -75,7 +71,6 @@ button:hover{
   height: 60px;
   width: 70px;
   opacity: 30%;
-  /* background-color: hotpink; */
 }
 
 
@@ -84,7 +79,6 @@ button:hover{
 }
 
 .editInput{
-  /* background-color: green; */
   width: fit-content;
 
 }
@@ -125,6 +119,7 @@ button:hover{
 .statusbutton:focus{
   border: 1px solid brown;
   border-radius: 2px;
+  color: brown;
 }
 
 .status{
@@ -134,7 +129,6 @@ button:hover{
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  /* background-color: red; */
   width: 500px;
   position: relative;
 }

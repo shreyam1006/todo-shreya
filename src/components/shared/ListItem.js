@@ -39,7 +39,7 @@ class ListItem extends React.Component {
                             onClick={() => this.props.onclick(this.props.id)}
                             content={this.props.iscompleted ? <CheckCircleOutlinedIcon sx={{ fontSize: 40 }} /> : <CircleOutlinedIcon sx={{ fontSize: 40 }} />}
                         />
-                        <h7> {this.props.value}</h7>
+                        <div> {this.props.value}</div>
                     </div>
                     <Button
                         className="cross"
