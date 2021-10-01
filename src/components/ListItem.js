@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
@@ -11,32 +11,36 @@ const ListItem = (props) => {
 
     let [newListItem, setNewListItem] = useState('');
     const dispatch = useDispatch();
+    const { isCompleted, value, id, edit } = props
 
     const onDoubleClickEdit = (value) => {
         setNewListItem(newListItem = value)
-        dispatch(editListItem(props.id))
+        dispatch(editListItem(id))
     }
+
+    const clickItem = useCallback(() => dispatch(click(id)), [dispatch, id])
+    const clickDelete = useCallback(() => dispatch(deleteListItem(id)), [dispatch, id])
 
     return (
         <div className="list"
-            style={{ textDecoration: props.iscompleted ? 'line-through' : 'none' }}
-            key={props.id}  >
+            style={{ textDecoration: isCompleted ? 'line-through' : 'none' }}
+            key={id}  >
 
             <div className="listitem"
-                onDoubleClick={() => onDoubleClickEdit(props.value)}
-                style={{ display: props.edit ? 'none' : 'flex' }}>
+                onDoubleClick={() => onDoubleClickEdit(value)}
+                style={{ display: edit ? 'none' : 'flex' }}>
 
-                <div className="leftsection" style={{ opacity: props.iscompleted ? '30%' : '100%' }}>
+                <div className="leftsection" style={{ opacity: isCompleted ? '30%' : '100%' }}>
                     <Button
                         className="icon"
-                        onClick={() => dispatch(click(props.id))}
-                        content={props.iscompleted ? <CheckCircleOutlinedIcon sx={{ fontSize: 40 }} /> : <CircleOutlinedIcon sx={{ fontSize: 40 }} />}
+                        onClick={clickItem}
+                        content={isCompleted ? <CheckCircleOutlinedIcon sx={{ fontSize: 40 }} /> : <CircleOutlinedIcon sx={{ fontSize: 40 }} />}
                     />
-                    <div> {props.value}</div>
+                    <div> {value}</div>
                 </div>
                 <Button
                     className="cross"
-                    onClick={() => dispatch(deleteListItem(props.id))}
+                    onClick={clickDelete}
                     content={<ClearOutlinedIcon />}
                 />
 
@@ -46,9 +50,9 @@ const ListItem = (props) => {
                 className="editInput"
                 value={newListItem}
                 onChange={e => setNewListItem(newListItem = e.target.value)}
-                onKeyDown={e => { if (e.key === "Enter") { return (dispatch(replaceListItem(props.id, newListItem))) } }}
-                placeholder={props.value}
-                style={{ display: props.edit ? 'flex' : 'none' }}
+                onKeyDown={e => { if (e.key === "Enter") { return (dispatch(replaceListItem(id, newListItem))) } }}
+                placeholder={value}
+                style={{ display: edit ? 'flex' : 'none' }}
             />
         </div>
     )

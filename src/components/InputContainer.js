@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useCallback } from 'react'
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import Input from './Input'
 import ListItem from './ListItem'
@@ -13,6 +13,7 @@ const InputContainer = () => {
     const todo = useSelector((state) => state.todoReducer);
     const dispatch = useDispatch();
     const itemsLeft = useMemo(() => todo.list.filter(item => item.isCompleted !== true).length, [todo.list])
+    const all = useCallback(() => dispatch(clickAll(itemsLeft)), [dispatch, itemsLeft])
 
     const listToMap = useMemo(() => {
         if (todo.listMode === 'all') {
@@ -34,7 +35,7 @@ const InputContainer = () => {
 
             <div className="inputsection">
                 <Button
-                    className="allbutton" onClick={() => dispatch(clickAll(itemsLeft))}
+                    className="allbutton" onClick={all}
                     content={<KeyboardArrowDownOutlinedIcon sx={{ fontSize: 40 }} />}
                     style={{ display: todo.list.length > 0 ? 'flex' : 'none' }}
                 />
@@ -52,7 +53,7 @@ const InputContainer = () => {
             <div>
                 {listToMap.map(item =>
 
-                    <ListItem iscompleted={item.isCompleted}
+                    <ListItem isCompleted={item.isCompleted}
                         value={item.value}
                         id={item.id}
                         key={item.id}
