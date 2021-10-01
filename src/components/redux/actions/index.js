@@ -1,3 +1,11 @@
+
+export const clickAll=(itemsLeft)=>{
+    return{
+        type:'CLICK_ALL',
+        itemsLeft
+    }
+}
+
 export const addListItem=(value)=>{
     return{
     type:'ADD_ITEM',
@@ -5,9 +13,10 @@ export const addListItem=(value)=>{
     }
 }
 
-export const listToMap=()=>{
+export const click=(id)=>{
     return{
-        type:'LIST_TO_MAP'
+        type:'CLICK',
+        id
     }
 }
 
@@ -21,11 +30,19 @@ export const deleteListItem=(id)=>{
 export const editListItem=(id)=>{
     return{
     type:'EDIT_ITEM',
-    id:id
+    id
     }
 }
 
-export const clickAllButtom=()=>{
+export const replaceListItem=(id,value)=>{
+    return{
+        type:"REPLACE_ITEM",
+        id,
+        value
+    }
+}
+
+export const clickAllButton=()=>{
     return{
     type:'ALL'
     }
@@ -40,5 +57,11 @@ export const clickActiveButton=()=>{
 export const clickCompletedButton=()=>{
     return{
     type:'COMPLETED'
+    }
+}
+
+export const clickClearCompletedButton=()=>{
+    return{
+    type:'CLEAR_COMPLETED'
     }
 }

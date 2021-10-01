@@ -1,9 +1,24 @@
-const todoReducer = (state = { list: [], listMode: 'all' }, action) => {
+const initialState = { list: [], listMode: 'all' }
+
+const todoReducer = (state = initialState, action) => {
+
     switch (action.type) {
-        case "ADD_ITEM":
-            console.log(state.list)
+        case "CLICK_ALL":
+            let flag = action.itemsLeft > 0 ? false : true;
             return {
-                list: [...state.list, {
+                ...state, list:
+
+                    [...state.list].map(item => {
+                        if (item.isCompleted === flag) {
+                            item.isCompleted = !flag;
+                        }
+                        return item
+                    })
+            }
+
+        case "ADD_ITEM":
+            return {
+                ...state, list: [...state.list, {
                     id: new Date(),
                     value: action.value,
                     isCompleted: false,
@@ -11,36 +26,51 @@ const todoReducer = (state = { list: [], listMode: 'all' }, action) => {
                 }]
             }
 
-        case "LIST_TO_MAP":
-            console.log(state.listMode)
-            if (state.listMode === 'all') {
-                return state.list
+        case "CLICK":
+            return {
+                ...state, list: [...state.list].map(item => {
+                    if (item.id === action.id) {
+                        item.isCompleted = !item.isCompleted;
+                    }
+                    return item
+                })
             }
-            if (state.listMode === 'active') {
-                return [...state.list].filter(item => item.isCompleted === false)
-            }
-            if (state.listMode === 'completed') {
-                return [...state.list].filter(item => item.isCompleted === true)
-            }
-            return [...state.list].filter(item => item.isCompleted === false)
 
         case "DELETE_ITEM":
-            return [...state.list].filter(item => item.id !== action.id)
+            return state.list.filter(item => item.id !== action.id)
 
         case "EDIT_ITEM":
-            return [...state].map(item => {
-                if (item.id === action.id) {
-                    item.edit = true
-                }
-                return item
-            })
+            return {
+                ...state, list: [...state.list].map(item => {
+                    if (item.id === action.id) {
+                        item.edit = true
+                    }
+                    return item
+                })
+            }
+
+        case "REPLACE_ITEM":
+            return {
+                ...state, list: [...state.list].map(item => {
+                    if (item.id === action.id) {
+                        item.value = action.value
+                        item.edit = false
+                    }
+                    return item
+                })
+            }
 
         case 'ALL':
-            return {listMode:'all'}
+            return { ...state, listMode: 'all' }
+
         case 'ACTIVE':
-            return {listMode:'active'}
+            return { ...state, listMode: 'active' }
+
         case 'COMPLETED':
-            return {listMode:'completed'}
+            return { ...state, listMode: 'completed' }
+
+        case "CLEAR_COMPLETED":
+            return { ...state, list: [...state.list].filter(item => item.isCompleted !== true) }
 
         default:
             return state

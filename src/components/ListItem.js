@@ -4,18 +4,18 @@ import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import Input from './Input'
 import Button from './Button';
+import { click, deleteListItem, editListItem, replaceListItem } from './redux/actions'
+import { useDispatch } from 'react-redux';
 
-const ListItem=(props)=> {
+const ListItem = (props) => {
 
     let [newListItem, setNewListItem] = useState('');
+    const dispatch = useDispatch();
 
-    const onDoubleClickEdit=(value)=> {
-
+    const onDoubleClickEdit = (value) => {
         setNewListItem(newListItem = value)
-        props.onEdit(props.id)
-
+        dispatch(editListItem(props.id))
     }
-    
 
     return (
         <div className="list"
@@ -29,14 +29,14 @@ const ListItem=(props)=> {
                 <div className="leftsection" style={{ opacity: props.iscompleted ? '30%' : '100%' }}>
                     <Button
                         className="icon"
-                        onClick={() => props.onClick(props.id)}
+                        onClick={() => dispatch(click(props.id))}
                         content={props.iscompleted ? <CheckCircleOutlinedIcon sx={{ fontSize: 40 }} /> : <CircleOutlinedIcon sx={{ fontSize: 40 }} />}
                     />
                     <div> {props.value}</div>
                 </div>
                 <Button
                     className="cross"
-                    onClick={() => props.onDelete(props.id)}
+                    onClick={() => dispatch(deleteListItem(props.id))}
                     content={<ClearOutlinedIcon />}
                 />
 
@@ -46,7 +46,7 @@ const ListItem=(props)=> {
                 className="editInput"
                 value={newListItem}
                 onChange={e => setNewListItem(newListItem = e.target.value)}
-                onKeyDown={e => e.key === "Enter" && props.replaceItem(props.id, newListItem)}
+                onKeyDown={e => { if (e.key === "Enter") { return (dispatch(replaceListItem(props.id, newListItem))) } }}
                 placeholder={props.value}
                 style={{ display: props.edit ? 'flex' : 'none' }}
             />
