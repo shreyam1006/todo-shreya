@@ -1,18 +1,19 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 const Nav = () => {
     return (
         <nav>
             <ul className="type">
-                <a href="/">
+                <Link to="/">
                     <li>Home</li>
-                </a>
-                <a href="/todo">
+                </Link>
+                <Link to="/todo">
                     <li>Todo</li>
-                </a>
-                <a href="/users">
+                </Link>
+                <Link to="/users">
                     <li>Users</li>
-                </a>
+                </Link>
             </ul>
         </nav>
     )

@@ -15,7 +15,6 @@ nav{
   list-style: none;
   font-size: 20px;
   font: bold;
-  /* font-family: 'Courier New', Courier, monospace; */
   font-weight: 400;
 }
 
@@ -35,7 +34,14 @@ a:visited{
   opacity: 20%;
 }
 
-.App input[type="text"]{
+input[type="text"]{
+  width: 470px;
+  height: 60px;
+  font-size: 25px;
+  border:none;
+}
+
+input[type="password"]{
   width: 470px;
   height: 60px;
   font-size: 25px;
@@ -46,15 +52,14 @@ input[type="text"]:focus{
   outline: none;
 }
 
+input[type="password"]:focus{
+  outline: none;
+}
+
 ::placeholder{
   font-size: 23px;
   opacity: 30%;
   font-style: italic;
-}
-
-
-.maininput{
-  border-bottom: 1px solid gray;
 }
 
 button{
@@ -164,6 +169,12 @@ button:hover{
   position: relative;
 }
 
+.userbutton{
+  padding: 10px 10px 10px 10px;
+  background-color: white;
+  border-radius: 3px;
+  border: 1px solid black;
+}
 
 
 
